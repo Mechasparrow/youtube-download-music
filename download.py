@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 import youtube_dl
 
+youtube_video = input("Give me the link to the youtube video: ")
+
 class MyLogger(object):
     def debug(self, msg):
         pass
@@ -17,7 +19,7 @@ def my_hook(d):
 
 ydl_opts = {
     'format': 'bestaudio/best',
-    'outtmpl': './output/hello.mp4',
+    'outtmpl': './output/%(title)s.%(ext)s',
     'postprocessors': [{
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'mp3',
@@ -27,7 +29,5 @@ ydl_opts = {
     'progress_hooks': [my_hook],
 }
 
-
-
 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-    ydl.download(['https://www.youtube.com/watch?v=BaW_jenozKc'])
+    ydl.download([youtube_video])
